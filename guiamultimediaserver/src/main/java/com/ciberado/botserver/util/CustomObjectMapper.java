@@ -5,14 +5,12 @@
 package com.ciberado.botserver.util;
 
 import com.ciberado.botserver.datapublishing.InfoCard;
-import com.vividsolutions.jts.geom.Geometry;
 import java.io.IOException;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.module.SimpleModule;
@@ -31,7 +29,6 @@ public class CustomObjectMapper extends ObjectMapper {
         
         SimpleModule module =  new SimpleModule("CustomSerializerModule",  
                                                 new Version(1, 0, 0, null));
-        module.addSerializer(Geometry.class, new JsonGeometrySerializer());
         module.addSerializer(InfoCard.class, new InfoCardSerializer());
         super.registerModule(module);           
 //        super.getSerializationConfig().set( 
@@ -39,18 +36,7 @@ public class CustomObjectMapper extends ObjectMapper {
         super.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
     }
     
-    
-    
-    class JsonGeometrySerializer extends JsonSerializer<Geometry> {
-
-        @Override
-        public void serialize(Geometry geo, JsonGenerator gen, SerializerProvider provider)
-        throws IOException, JsonProcessingException {
-            gen.writeString(geo.toString());
-        }
-    }
-    
-    
+        
     class InfoCardSerializer extends JsonSerializer<InfoCard> {
         @Override
         public void serialize(InfoCard infoCard, JsonGenerator gen, SerializerProvider provider)

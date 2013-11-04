@@ -12,13 +12,7 @@
     <properties> 
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <geotools.version>8.2</geotools.version>
-        <geotools.scope>compile</geotools.scope>
         <org.springframework.version>3.1.2.RELEASE</org.springframework.version>
-        <!--
-        <org.springframework.version>3.1.2.RELEASE</org.springframework.version>
-        <org.springframework.version>3.0.7.RELEASE</org.springframework.version>
-        -->
         <org.springframework.scope>compile</org.springframework.scope>
         <org.hibernate.scope>compile</org.hibernate.scope>
         <org.hibernate.version>4.1.4.Final</org.hibernate.version>
@@ -313,27 +307,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-shapefile</artifactId>
-            <version>${geotools.version}</version>
-            <scope>${geotools.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-render</artifactId>
-            <version>${geotools.version}</version>
-            <scope>${geotools.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-epsg-hsql</artifactId>
-            <version>${geotools.version}</version>
-            <scope>${geotools.scope}</scope>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>guiamultimediamodel</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-referencing</artifactId>
+            <version>8.2</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <repositories>

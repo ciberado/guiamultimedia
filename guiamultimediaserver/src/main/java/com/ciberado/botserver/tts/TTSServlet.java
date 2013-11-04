@@ -6,7 +6,6 @@
 package com.ciberado.botserver.tts;
 
 import com.ciberado.botserver.datapublishing.InfoCard;
-import com.ciberado.botserver.wms.services.InfoCardService;
 import com.ciberado.lang.IOUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -28,7 +28,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class TTSServlet extends HttpServlet {
     
     private WebApplicationContext springContext;
-    private InfoCardService infoCardService;
     private TTSGenerator generator;
         
     private File ttsFolder;
@@ -40,7 +39,6 @@ public class TTSServlet extends HttpServlet {
         ttsFolder = new File(
                 System.getProperty("java.io.tmpdir") + "/" +
                 configProps.getProperty("tts.location")).getAbsoluteFile();    
-        this.infoCardService = (InfoCardService) springContext.getBean("infoCardService");
         if (springContext.containsBean("ttsGenerator") == true) {
             this.generator = (TTSGenerator) springContext.getBean("ttsGenerator");
         }
@@ -93,12 +91,7 @@ public class TTSServlet extends HttpServlet {
     } 
     
     private String retreiveDescription(String language, String query) {
-        String desc = null;
-        InfoCard infoCard = infoCardService.getInfoCard(query);
-        if (infoCard != null) {
-            desc = (String) infoCard.get("description");
-        }
-        return desc;
+        throw new NotImplementedException("Previous imp used InfoCardService.");
     }    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

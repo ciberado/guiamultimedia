@@ -8,7 +8,6 @@ package com.ciberado.botserver.datapublishing;
 import com.ciberado.botserver.model.Specimen;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.FieldPosition;
 import java.text.MessageFormat;
 import java.util.LinkedHashSet;
 import java.util.List;

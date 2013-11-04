@@ -13,91 +13,11 @@
            ">
     <util:properties id="config" location="${guiamultimedia-config-path}"/>               
         
-    <bean id="fitoepisodisSource" 
-          class="com.ciberado.botserver.wms.FeatureSourceFactory" 
-          factory-method="create"> 
-        <constructor-arg>
-            <value>#{config['maps.fitoepisodis.location']}</value>
-        </constructor-arg>
-    </bean>
-    <bean id="pointsOfInterestSource" 
-          class="com.ciberado.botserver.wms.FeatureSourceFactory" 
-          factory-method="create">
-        <constructor-arg>
-            <value>#{config['maps.pointsofinterest.location']}</value>
-        </constructor-arg>
-    </bean>
-    <bean id="railingSource" 
-          class="com.ciberado.botserver.wms.FeatureSourceFactory" 
-          factory-method="create">
-        <constructor-arg>
-            <value>#{config['maps.railing.location']}</value>
-        </constructor-arg>
-    </bean>
-
-    <!-- Servicios WMS -->
-    <bean id="capabilitiesService" class="com.ciberado.botserver.wms.services.CapabilitiesServImplShape">
-        <property name="featureSources">
-            <map>
-                <entry key="fitoepisodis" value-ref="fitoepisodisSource"/>
-            </map>
-        </property>
-        <property name="name" value="WMS" />
-        <property name="abstract" value="Web Map Service of the Botanic Garden of Barcelona" />
-        <property name="address" value="Montjuïc, Barcelona (41.36198, 2.15675)" />
-        <property name="organization" value="Jardí Botànic de Barcelona" />
-        <property name="title" value="Botanic garden guide" />
-    </bean>
-
-    <bean id="defaultStyle" class="com.ciberado.botserver.wms.services.StyleServImplDefault" />    
-
-    <bean id="sldFitoStyle" class="com.ciberado.botserver.wms.services.StyleServImplSLD" >
-        <property name="sourcePath" value="#{config['maps.fitoepisodis.sldlocation']}"/>
-    </bean>
-    
-    <bean id="sldRailingStyle" class="com.ciberado.botserver.wms.services.StyleServImplSLD" >
-        <property name="sourcePath" value="#{config['maps.railing.sldlocation']}"/>
-    </bean>
-    
-    <bean id="programaticPointsOfInterestStyle" class="com.ciberado.botserver.wms.services.StyleServImplPointsOfInterest" >
-        <property name="fillColorPropertyName" value="codi_hexa" />
-        <property name="iconPathPropertyName" value="repr" />
-    </bean>
-    
-    <bean id="pictographicStyle" class="com.ciberado.botserver.wms.services.StyleServImplSLD" >
-        <property name="sourcePath" value="#{config['maps.railing.sldlocation']}"/>
-    </bean>
-    <bean id="imageMapService" class="com.ciberado.botserver.wms.services.ImageMapServImplShape">
-        <property name="featureSources">
-            <map>
-                <entry key="pointsOfInterest" value-ref="pointsOfInterestSource"/>
-                <entry key="railing" value-ref="railingSource"/>
-                <entry key="fitoepisodis" value-ref="fitoepisodisSource"/>
-            </map>
-        </property>
-        <property name="styles" >
-            <map>
-                <entry key="defaultFitoepisodis" 
-                       value-ref="sldFitoStyle"/>
-                <entry key="defaultRailing" 
-                       value-ref="sldRailingStyle"/>
-                <entry key="defaultPointsOfInterest" 
-                       value-ref="programaticPointsOfInterestStyle"/>
-            </map>
-        </property>
-    </bean>
-
     <bean id="featureInfoService" 
           class="com.ciberado.botserver.datapublishing.FeatureInfoServiceImplHibernate"/>
     
     <bean id="itineraryService" 
           class="com.ciberado.botserver.datapublishing.ItineraryServiceImplHibernate"/>
 
-    <!--
-    <bean id="itineraryCtrl" 
-          class="com.ciberado.botserver.datapublishing.ItineraryCtrl" />
-    <bean id="featureInfoCtrl" 
-          class="com.ciberado.botserver.datapublishing.FeatureInfoCtrl" />
-    -->
 
 </beans>
