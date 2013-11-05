@@ -32,7 +32,10 @@ public class FeatureInfoCtrl {
     private ObjectMapper mapper; 
 
     @Inject
-    private FeatureInfoService service;
+    private FeatureInfoService featureInfoService;
+    
+    @Inject 
+    private WikipediaService wikipediaService;
     
     private void writeResponse(PrintWriter out, ObjectMapper mapper, Object response, String callback) 
     throws IOException {
@@ -56,7 +59,7 @@ public class FeatureInfoCtrl {
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
-        List<Specimen> specimens = service.getSpecimens(pattern, lat, lon);
+        List<Specimen> specimens = featureInfoService.getSpecimens(pattern, lat, lon);
         this.writeResponse(out, mapper, new LinkedHashSet(specimens), callback);        
     }
 
@@ -69,7 +72,7 @@ public class FeatureInfoCtrl {
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
-        List<Specimen> specimens = service.getSpecimens(lat, lon, maxDistance);
+        List<Specimen> specimens = featureInfoService.getSpecimens(lat, lon, maxDistance);
         this.writeResponse(out, mapper, new LinkedHashSet(specimens), callback);        
     }
 
@@ -82,7 +85,7 @@ public class FeatureInfoCtrl {
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
-        List<Object> references = service.getSpecimenReferences(minLat, minLon, maxLat, maxLon);
+        List<Object> references = featureInfoService.getSpecimenReferences(minLat, minLon, maxLat, maxLon);
         if (callback != null) {
             out.write(callback + "([");
         }
@@ -125,6 +128,22 @@ public class FeatureInfoCtrl {
         return result;
     }
 
-   
+    @RequestMapping(value="/wikipedia", method= RequestMethod.GET)
+    public void getFeaturesDescriptionFromWikipedia(
+            @RequestParam String wikipediaLink,
+            @RequestParam String callback,
+            HttpServletResponse response) 
+    throws IOException {       
+        response.setContentType("text/plain;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        String text = wikipediaService.getResume(wikipediaLink);
+        if (callback != null) {
+            out.write(callback + "(");
+        }        
+        out.write("{\"text\" : \"" + text + "\"}");
+        if (callback != null) {
+            out.write(")");
+        }
+    }
 
 }

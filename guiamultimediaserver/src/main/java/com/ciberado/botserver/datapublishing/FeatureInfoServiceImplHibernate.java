@@ -5,6 +5,7 @@
 package com.ciberado.botserver.datapublishing;
 
 import com.ciberado.botserver.model.Specimen;
+import com.ciberado.botserver.model.Taxon;
 import java.awt.geom.Point2D;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -101,5 +102,5 @@ implements FeatureInfoService  {
         return specimens;
     }
 
-    
+
 }

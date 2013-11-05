@@ -12,7 +12,7 @@
     <properties> 
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.springframework.version>3.1.2.RELEASE</org.springframework.version>
+        <org.springframework.version>3.2.4.RELEASE</org.springframework.version>
         <org.springframework.scope>compile</org.springframework.scope>
         <org.hibernate.scope>compile</org.hibernate.scope>
         <org.hibernate.version>4.1.4.Final</org.hibernate.version>
@@ -117,58 +117,18 @@
             <version>${org.springframework.version}</version>
             <scope>${org.springframework.scope}</scope>
         </dependency>
-
-        <!--
-            JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
-            Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*)
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>${org.springframework.scope}</scope>
-        </dependency>
-        -->
-
-        <!--
-            Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA, and iBatis.
-            (depends on spring-core, spring-beans, spring-context, spring-tx)
-            Define this if you need ORM (org.springframework.orm.*)
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework.version}</version>
             <scope>${org.springframework.scope}</scope>
         </dependency>
-
-        <!--
-            Object-to-XML Mapping (OXM) abstraction and integration with JAXB, JiBX, Castor, XStream, and XML Beans.
-            (depends on spring-core, spring-beans, spring-context)
-            Define this if you need OXM (org.springframework.oxm.*)
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-oxm</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>${org.springframework.scope}</scope>
-        </dependency>
-        -->
-
-        <!--
-            Web application development utilities applicable to both Servlet and Portlet Environments
-            (depends on spring-core, spring-beans, spring-context)
-            Define this if you use Spring MVC, or wish to use Struts, JSF, or another web framework with Spring (org.springframework.web.*)
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${org.springframework.version}</version>
             <scope>${org.springframework.scope}</scope>
         </dependency>
-
-        <!--
-            Spring MVC for Servlet Environments (depends on spring-core, spring-beans, spring-context, spring-web)
-            Define this if you use Spring MVC with a Servlet Container such as Apache Tomcat (org.springframework.web.servlet.*)
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -176,27 +136,6 @@
             <scope>${org.springframework.scope}</scope>
         </dependency>
 
-        <!--
-            Spring MVC for Portlet Environments (depends on spring-core, spring-beans, spring-context, spring-web)
-            Define this if you use Spring MVC with a Portlet Container (org.springframework.web.portlet.*)
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc-portlet</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>${org.springframework.scope}</scope>
-        </dependency>
-        -->
-
-        <!--
-            Support for testing Spring applications with tools such as JUnit and TestNG
-            This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${org.springframework.version}</version>
-            <scope>test</scope>
-        </dependency>
-        -->
                 
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -317,6 +256,11 @@
             <version>8.2</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.7.2</version>
+        </dependency>        
     </dependencies>
     <repositories>
         <repository>

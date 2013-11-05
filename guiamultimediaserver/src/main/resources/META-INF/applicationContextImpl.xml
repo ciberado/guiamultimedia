@@ -13,6 +13,9 @@
            ">
     <util:properties id="config" location="${guiamultimedia-config-path}"/>               
         
+    <bean id="wikipediaService" 
+          class="com.ciberado.botserver.datapublishing.WikipediaServiceImpl"/>
+    
     <bean id="featureInfoService" 
           class="com.ciberado.botserver.datapublishing.FeatureInfoServiceImplHibernate"/>
     

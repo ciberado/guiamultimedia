@@ -179,6 +179,16 @@ public class Taxon implements Serializable {
         return descResources;
     }
     
+    @Transient private Map<String, String> wikipediaResources = new HashMap<String, String>();    
+    public Map<String, String> getWikipediaResource() {            
+        if (resources == null) return null;
+        
+        if (wikipediaResources.isEmpty()) for (String lang : resources.keySet()) {
+            wikipediaResources.put(lang, resources.get(lang).wikipedia);
+        }
+        return wikipediaResources;
+    }
+    
     @Transient private Map<String, String> audioFileResources = new HashMap<String, String>();    
     public Map<String, String> getAudioFileResources() {            
         if (resources == null) return null;
@@ -249,6 +259,8 @@ public class Taxon implements Serializable {
         private String audio;
         @Column(name = "ta_desc_etimologia")
         private String etimologia;
+        @Column(name = "ta_desc_wikipedia")
+        private String wikipedia;
         
     }
 
