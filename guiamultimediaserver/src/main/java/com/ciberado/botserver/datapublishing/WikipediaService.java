@@ -6,12 +6,14 @@
 
 package com.ciberado.botserver.datapublishing;
 
+import com.ciberado.botserver.model.WikipediaPageResume;
+
 /**
  *
  * @author ciberado
  */
 public interface WikipediaService {
 
-    String getResume(String wikipediaLink);
+    WikipediaPageResume getResume(String wikipediaLink);
     
 }

@@ -8,6 +8,7 @@ package com.ciberado.botserver.datapublishing;
 import com.ciberado.botserver.model.Specimen;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -134,16 +135,19 @@ public class FeatureInfoCtrl {
             @RequestParam String callback,
             HttpServletResponse response) 
     throws IOException {       
-        response.setContentType("text/plain;charset=utf-8");
+        response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
-        String text = wikipediaService.getResume(wikipediaLink);
         if (callback != null) {
             out.write(callback + "(");
         }        
-        out.write("{\"text\" : \"" + text + "\"}");
+        StringWriter sw = new StringWriter(512);
+        mapper.writeValue(sw, wikipediaService.getResume(wikipediaLink));
+        sw.close();
+        out.write(sw.getBuffer().toString());
         if (callback != null) {
             out.write(")");
         }
+        out.flush();
     }
 
 }

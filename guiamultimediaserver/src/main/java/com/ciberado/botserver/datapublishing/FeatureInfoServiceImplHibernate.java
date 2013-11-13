@@ -5,7 +5,6 @@
 package com.ciberado.botserver.datapublishing;
 
 import com.ciberado.botserver.model.Specimen;
-import com.ciberado.botserver.model.Taxon;
 import java.awt.geom.Point2D;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,7 +21,7 @@ public class FeatureInfoServiceImplHibernate
 implements FeatureInfoService  {
     
     private double MAX_FEATURE_DISTANCE_TO_CENTER = 5.0; //meters
-    protected static final int MAX_FEATURES = 10;
+    protected static final int MAX_FEATURES = 100;
     
     @PersistenceContext
     private EntityManager em;
