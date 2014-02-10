@@ -10,12 +10,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +40,9 @@ public class FeatureInfoCtrl {
     
     @Inject 
     private WikipediaService wikipediaService;
+    
+    @Inject
+    private CacheManager cacheManager;
     
     private void writeResponse(PrintWriter out, ObjectMapper mapper, Object response, String callback) 
     throws IOException {
@@ -149,5 +155,13 @@ public class FeatureInfoCtrl {
         }
         out.flush();
     }
-
+    
+    @RequestMapping(value="/wikipedia/reset", method= RequestMethod.GET)
+    public void resetWikipediaCache(HttpServletResponse response) throws IOException {
+        cacheManager.getCache("wikipediaResumes").clear();
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.println("<h1>Cache reseteada</h1><p>Fecha servidor: " + new Date() + ".</p>");
+    }
+              
 }

@@ -40,13 +40,19 @@ public class WikipediaServiceImpl implements WikipediaService {
             } 
             page.setText(textResume.toString().replaceAll("\\[.*\\]", ""));
             Elements galleryImages = doc.select("#mw-content-text a.image");
-            for (Element imgElem : galleryImages) {
+            for (Element linkElem : galleryImages) {
                 URL url = new URL(wikipediaLink);                
-                String imageUrl = "//" + url.getHost() + imgElem.attr("href");
-                if (isValidImageResource(imageUrl) == true) {
-                    String thumbnail = imgElem.getElementsByTag("img").attr("src");
-                    page.addImage(imageUrl, thumbnail);
+                String imageUrl = "//" + url.getHost() + linkElem.attr("href");
+                if (isValidImageResource(imageUrl) == false) {
+                    continue;
                 }
+                Element imgElem = linkElem.getElementsByTag("img").first();
+                String width = imgElem.attr("width");
+                if ((width != null) && (width.isEmpty() == false) && (Integer.parseInt(width) <= 50)) {
+                    continue;
+                }
+                String thumbnail = imgElem.attr("src");
+                page.addImage(imageUrl, thumbnail);
             }
             
             return page;
