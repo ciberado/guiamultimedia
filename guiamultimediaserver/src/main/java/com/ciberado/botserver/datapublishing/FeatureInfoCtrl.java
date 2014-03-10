@@ -118,7 +118,7 @@ public class FeatureInfoCtrl {
 
     private int getPortCodeFor(String port) {
         int result = -1;
-        
+        if (port != null) port = port.toLowerCase();
         if ("herbàcia".equals(port) == true ) result = 1;
         else if ("bulbosa".equals(port) == true ) result = 2;
         else if ("matoll".equals(port) == true ) result = 3;
