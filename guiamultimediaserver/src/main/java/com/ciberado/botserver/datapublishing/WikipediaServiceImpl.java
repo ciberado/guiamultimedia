@@ -32,13 +32,18 @@ public class WikipediaServiceImpl implements WikipediaService {
             StringBuilder textResume = new StringBuilder();
             for (Element elem : textParagraphs) {
                 String text = elem.text();
-                if (textResume.length() + text.length() < 600) {
-                    textResume.append(text);
-                } else {
+                text = text.replaceAll("\\[.*?\\]", " ");
+                textResume.append(text).append(" ");
+                if (textResume.length() > 600) {
                     break;
                 }
             } 
-            page.setText(textResume.toString().replaceAll("\\[.*\\]", ""));
+            while (textResume.length() > 600) {
+                do {
+                    textResume.deleteCharAt(textResume.length()-1);            
+                } while (textResume.length() > 0 && textResume.charAt(textResume.length()-1) != '.');
+            }
+            page.setText(textResume.toString());
             Elements galleryImages = doc.select("#mw-content-text a.image");
             for (Element linkElem : galleryImages) {
                 URL url = new URL(wikipediaLink);                
