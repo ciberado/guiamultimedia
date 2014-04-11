@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +48,7 @@ public class FeatureInfoCtrl {
         if (callback != null) {
             out.write(callback + "(");
             out.flush();
-        }
+        } 
         out.write(mapper.writeValueAsString(response));
         if (callback != null) {
             out.write(")");
@@ -61,7 +60,7 @@ public class FeatureInfoCtrl {
     public void getFeaturesWithPattern(
             @RequestParam String pattern,
             @RequestParam double lat, @RequestParam double lon,
-            @RequestParam String callback,
+            @RequestParam(required = false) String callback,
             HttpServletResponse response) 
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
@@ -74,7 +73,7 @@ public class FeatureInfoCtrl {
     public void getFeaturesNearLatLon(
             @RequestParam double lat, @RequestParam double lon,
             @RequestParam(defaultValue="-1.0") double maxDistance,
-            @RequestParam String callback,
+            @RequestParam(required = false) String callback,
             HttpServletResponse response) 
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
@@ -87,15 +86,16 @@ public class FeatureInfoCtrl {
     public void getFeaturesReferencesInBBox(
             @RequestParam double minLat, @RequestParam double minLon,
             @RequestParam double maxLat, @RequestParam double maxLon,
-            @RequestParam String callback,
+            @RequestParam(required = false) String callback,
             HttpServletResponse response) 
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
         List<Object> references = featureInfoService.getSpecimenReferences(minLat, minLon, maxLat, maxLon);
         if (callback != null) {
-            out.write(callback + "([");
+            out.write(callback + "(");
         }
+        out.write("[");
         MessageFormat mf = new MessageFormat("[{0,number,#.#######}, {1,number,#.######}, {2}]", Locale.ENGLISH);
         StringBuffer line = new StringBuffer();
         for (int idx=0; idx < references.size(); idx++) {
@@ -111,8 +111,9 @@ public class FeatureInfoCtrl {
             }
             out.write(line.toString());
         }
+        out.write("]");
         if (callback != null) {
-            out.write("])");
+            out.write(")");
         }
     }
 
@@ -138,7 +139,7 @@ public class FeatureInfoCtrl {
     @RequestMapping(value="/wikipedia", method= RequestMethod.GET)
     public void getFeaturesDescriptionFromWikipedia(
             @RequestParam String wikipediaLink,
-            @RequestParam String callback,
+            @RequestParam(required = false) String callback,
             HttpServletResponse response) 
     throws IOException {       
         response.setContentType("application/json;charset=utf-8");
